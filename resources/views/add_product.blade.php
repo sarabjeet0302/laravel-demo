@@ -237,31 +237,7 @@ table.table .avatar {
     font-weight: normal;
 }   
 </style>
-<script>
-$(document).ready(function(){
-    // Activate tooltip
-    $('[data-toggle="tooltip"]').tooltip();
-    
-    // Select/Deselect checkboxes
-    var checkbox = $('table tbody input[type="checkbox"]');
-    $("#selectAll").click(function(){
-        if(this.checked){
-            checkbox.each(function(){
-                this.checked = true;                        
-            });
-        } else{
-            checkbox.each(function(){
-                this.checked = false;                        
-            });
-        } 
-    });
-    checkbox.click(function(){
-        if(!this.checked){
-            $("#selectAll").prop("checked", false);
-        }
-    });
-});
-</script>
+
 </head>
 <body>
 <div class="container-xl">
@@ -270,79 +246,45 @@ $(document).ready(function(){
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h2>View <b>Products</b></h2>
+                        <h2>Add <b>Product</b></h2>
                     </div>
                     <div class="col-sm-6">
-                        <a href= "{{ url('list/category') }}" class="btn btn-primary" ><i class="material-icons">&#xE15C;</i> <span>Back</span></a>
-                        <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
+                        <a href= "{{ url('list/products/'.request()->route('categoryId')) }}" class="btn btn-primary" ><i class="material-icons">&#xE15C;</i> <span>Back</span></a>
+                       
                     </div>
                 </div>
             </div>
-            <table class="table table-striped table-hover">
-                @if(count($products) > 0)        
-                <thead>
-                    <tr>
-                        <th>Product Name</th>
-                       <th>Product Price</th>
-                       <th> Category Name</th>
+            <div class="modal-content">
+            <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{url('store-form')}}">
+                     @csrf
+            @if(Session::has('message'))
+            <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('message') }}</p>
+            @endif 
 
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($products as $product)
-                    <tr >
-                        <td>{{$product -> product_name}}</td>
-                        <td >{{$product -> price}}</td>
-                        <td>{{$product -> category_name}}</td>
-                    </tr>
-                   @endforeach
-                </tbody>
-                 @else
-                 <thead>
-                    <tr>
-                        <th>No Product Found!</th>
-                    </tr>
-                </thead>
-                 @endif
-            </table>
+                <div class="modal-body">  
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text" class="form-control"  name ="name"required>
+                    </div>
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input type="numeric" class="form-control" name ="price"required>
+                    </div>
+                   
+                </div>
+                <div class="modal-footer">
+                   <a href= "{{ url('list/products/'.request()->route('categoryId')) }}"> <input type="button" class="btn btn-default"  value="Cancel"></a>
+                 <button type="submit" class="btn btn-success">Submit</button>
+
+                    <!-- <input type="submit" class="btn btn-success" value="Add"> -->
+                </div>
+                   <input type="hidden" name="categoryId" value="{{request()->route('categoryId')}}" >
+
+            </form>
+        </div>
     
         </div>
     </div>        
-</div>
-<!-- Edit Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form>
-                <div class="modal-header">                      
-                    <h4 class="modal-title">Add Employee</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">                    
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Address</label>
-                        <textarea class="form-control" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Phone</label>
-                        <input type="text" class="form-control" required>
-                    </div>                  
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-success" value="Add">
-                </div>
-            </form>
-        </div>
-    </div>
 </div>
 
 

@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function index(){
        $categories = DB::select("SELECT * from categories");
-        return view('list-category',compact('categories'));
+        return view('list_category',compact('categories'));
     }
 
 }
