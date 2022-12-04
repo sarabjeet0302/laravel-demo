@@ -11,12 +11,21 @@
 
 brew services restart mysql
 
-- import DB file
-
 - Take a clone 
 
+To connect to mysql server add your DB name in file
+## Filename = .env
 
-Then enter command in terminal 'php artisan serve' 
+where DB_CONNECTION=mysql
+DB_DATABASE=laravel_demo
+
+- create a new DB with name laravel_demo
+- Import sql file
+
+
+##Go to project directory and run your server with command:
+
+    php artisan serve
 
      Server will be running on 
      http://127.0.0.1:8000
