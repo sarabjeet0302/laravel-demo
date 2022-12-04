@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Bootstrap CRUD Data Table for Database with Modal Form</title>
+<title>{{config('app.name','Laravel-demo')}}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -237,32 +237,9 @@ table.table .avatar {
     font-weight: normal;
 }   
 </style>
-<script>
-$(document).ready(function(){
-    // Activate tooltip
-    $('[data-toggle="tooltip"]').tooltip();
-    
-    // Select/Deselect checkboxes
-    var checkbox = $('table tbody input[type="checkbox"]');
-    $("#selectAll").click(function(){
-        if(this.checked){
-            checkbox.each(function(){
-                this.checked = true;                        
-            });
-        } else{
-            checkbox.each(function(){
-                this.checked = false;                        
-            });
-        } 
-    });
-    checkbox.click(function(){
-        if(!this.checked){
-            $("#selectAll").prop("checked", false);
-        }
-    });
-});
-</script>
+
 </head>
+
 <body>
 <div class="container-xl">
     <div class="table-responsive">
@@ -275,11 +252,11 @@ $(document).ready(function(){
                 </div>
             </div>
             <table class="table table-striped table-hover">
+                @if(count($categories) > 0)        
                 <thead>
                     <tr>
-             
                         <th>Category Name</th>
-                        <th>View Products</th>
+                        <th>View/Add Products</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -288,11 +265,19 @@ $(document).ready(function(){
                         <td>{{$category -> name}}</td>
                       <td>
                         <!--href="products/{{$category->id}}"  -->
-                            <a href = "{{ url('list/products/'.$category->id) }}" class="view" title="View" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                            <a href = "{{ url('list/products/'.$category->id) }}" class="view" title="View Product" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                            <a href="{{ url('list/add-product/'.$category->id) }}" class="view" title="Add Product" data-toggle="tooltip"><i class="material-icons">&#xE147;</i></a>
                         </td>
                     </tr>
                    @endforeach
                 </tbody>
+                  @else
+                 <thead>
+                    <tr>
+                        <th>No Record Found!</th>
+                    </tr>
+                </thead>
+                @endif
             </table>
         </div>
     </div>        
