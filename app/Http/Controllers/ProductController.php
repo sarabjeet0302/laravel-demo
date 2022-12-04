@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Product;
+use App\Models\CategoryProduct;
+
 
 class ProductController extends Controller
 {
@@ -17,6 +20,41 @@ class ProductController extends Controller
     ->whereNotNull('c3.name')
     ->orderBy('c2.created_at', 'DESC')
     ->get();
-       return view('list-product',compact('products'));
+
+       return view('list_product',compact('products'));
+    }
+
+    public function addProduct($categoryId)
+    {
+       return view('add_product',compact('categoryId'));
+
+    }
+
+    public function saveProduct(Request $request){
+
+            // dd($request->all());
+
+        $post = new Product;
+        $post->name = $request->name;
+        $post->price = $request->price;
+        $post->created_at = now();
+        $post->active = 1;
+
+        $post->save();
+
+        if($post->save()){
+              $prodData = new CategoryProduct;
+              $prodData->product_id = $post->id;
+              $prodData->category_id = $request->categoryId;
+              $prodData->created_at = now();
+              $prodData->active = 1;
+
+              $prodData->save();
+             return redirect('list/products/'.$request->categoryId)->with('message', 'Product added successfully.');
+
+        }else{
+            return back()->with('message','Sorry! Please try again.');
+        }
+
     }
 }
