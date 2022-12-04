@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Bootstrap CRUD Data Table for Database with Modal Form</title>
+<title>{{config('app.name','Laravel-demo')}}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -237,32 +237,9 @@ table.table .avatar {
     font-weight: normal;
 }   
 </style>
-<script>
-$(document).ready(function(){
-    // Activate tooltip
-    $('[data-toggle="tooltip"]').tooltip();
-    
-    // Select/Deselect checkboxes
-    var checkbox = $('table tbody input[type="checkbox"]');
-    $("#selectAll").click(function(){
-        if(this.checked){
-            checkbox.each(function(){
-                this.checked = true;                        
-            });
-        } else{
-            checkbox.each(function(){
-                this.checked = false;                        
-            });
-        } 
-    });
-    checkbox.click(function(){
-        if(!this.checked){
-            $("#selectAll").prop("checked", false);
-        }
-    });
-});
-</script>
+
 </head>
+
 <body>
 <div class="container-xl">
     <div class="table-responsive">
@@ -274,7 +251,7 @@ $(document).ready(function(){
                     </div>
 
                     <div class="col-sm-6">
-                        <a href= "{{ url('list/category') }}" class="btn btn-primary" ><i class="material-icons">&#xE15C;</i> <span>Back</span></a>
+                        <a href= "{{ url('/') }}" class="btn btn-primary" ><i class="material-icons">&#xE15C;</i> <span>Back</span></a>
                         <a href="{{ url('list/add-product/'.request()->route('categoryId')) }}" class="btn btn-success" ><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
                     </div>
                 </div>
@@ -286,9 +263,9 @@ $(document).ready(function(){
                 @if(count($products) > 0)        
                 <thead>
                     <tr>
-                        <th>Product Name</th>
+                       <th>Product Name</th>
                        <th>Product Price</th>
-                       <th> Category Name</th>
+                       <th>Category Name</th>
 
                     </tr>
                 </thead>
@@ -313,36 +290,6 @@ $(document).ready(function(){
         </div>
     </div>        
 </div>
-<!-- Edit Modal HTML -->
-<!-- <div id="addProductModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-                <form name="add-blog-post-form" id="add-blog-post-form" method="post" action="{{url('list/add-product')}}">
-                <div class="modal-header">                      
-                    <h4 class="modal-title">Add Employee</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">  
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" class="form-control"  name ="name"required>
-                    </div>
-                    <div class="form-group">
-                        <label>Price</label>
-                        <input type="numeric" class="form-control" name ="price"required>
-                    </div>
-                   
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                 <button type="submit" class="btn btn-success">Submit</button>
-
-                </div>
-            </form>
-        </div>
-    </div>
-</div> -->
-
 
 </body>
 </html>

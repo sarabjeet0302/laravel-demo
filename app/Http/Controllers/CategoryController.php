@@ -12,4 +12,8 @@ class CategoryController extends Controller
         return view('list_category',compact('categories'));
     }
 
+    public function listCat(){
+       return (DB::select("SELECT id,name from categories"));
+    }
+
 }

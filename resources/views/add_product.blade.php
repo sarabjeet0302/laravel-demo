@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Bootstrap CRUD Data Table for Database with Modal Form</title>
+<title>{{config('app.name','Laravel-demo')}}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -239,6 +239,7 @@ table.table .avatar {
 </style>
 
 </head>
+
 <body>
 <div class="container-xl">
     <div class="table-responsive">
@@ -261,14 +262,24 @@ table.table .avatar {
             <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('message') }}</p>
             @endif 
 
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
                 <div class="modal-body">  
                     <div class="form-group">
                         <label>Product Name</label>
-                        <input type="text" class="form-control"  name ="name"required>
+                        <input type="text" class="form-control"  name ="name">
                     </div>
                     <div class="form-group">
                         <label>Price</label>
-                        <input type="numeric" class="form-control" name ="price"required>
+                        <input type="numeric" class="form-control" name ="price">
                     </div>
                    
                 </div>
